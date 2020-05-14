@@ -25,6 +25,10 @@ const AccountReservationPage = () => {
     fetchReservations()
   }, [])
 
+  const handleDelete = id => {
+    console.log(id)
+  }
+
   return (
     <>
       <h1 className="container my-5 text-center display-4">
@@ -48,6 +52,12 @@ const AccountReservationPage = () => {
                   <span className="text-bold">{r.masks}</span>
                 </span>
               </p>
+              <button
+                onClick={handleDelete(r.id)}
+                className="btn btn-light text-success border-success"
+              >
+                Supprimer la réservation
+              </button>
             </div>
           </div>
         ))}

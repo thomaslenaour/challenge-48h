@@ -45,6 +45,9 @@ const ReservationPage = ({ match, history }) => {
   return (
     <>
       <h1 className="my-5 text-center display-4">Je réserve mon masque</h1>
+      <p className={`my-3 text-danger text-lg ${errorReservation}`}>
+        Un problème est survenue !
+      </p>
       <div className="container">
         <form onSubmit={handleSubmit} className="py-5">
           <Field

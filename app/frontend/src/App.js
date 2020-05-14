@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import AccountPage from './pages/AccountPage'
 import ReservationPage from './pages/ReservationPage'
 import AccountReservationPage from './pages/AccountReservationPage'
+import AccountParamsPage from './pages/AccountParamsPage'
 
 function App() {
   const { token, login, logout, userId } = useAuth()
@@ -35,6 +36,11 @@ function App() {
           exact
           path="/reservation/:companyId"
           component={ReservationPage}
+        />
+        <Route
+          exact
+          path="/account/params/:companyId"
+          component={AccountParamsPage}
         />
       </Switch>
     )

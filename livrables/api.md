@@ -4,7 +4,7 @@
 
 - ✅ **GET** /api/companies => Liste des entreprises
 - ✅ **POST** /api/companies/register => Créer une compagny (inscription)
-- **PATCH** /api/companies/:companyId => Modifier compagny
+- ✅ **PATCH** /api/companies/:companyId => Modifier compagny
 - ✅ **POST** /api/companies/login => Connexion
 - ✅ **GET** /api/companies/:companyId => Récupérer les infos en fonction de l'ID
 - **DELETE** /api/companies/:companyId => Supprimer une entreprise

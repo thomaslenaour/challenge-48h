@@ -47,7 +47,52 @@ const getCompany = async (req, res, next) => {
   res.json({ company: company.toObject({ getters: true }) })
 }
 
-const updateCompany = async (req, res, next) => {}
+const updateCompany = async (req, res, next) => {
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return next(new HttpError('Les données saisies sont invalides', 422))
+  }
+
+  const { name, email, address, postalCode, city, masksStock } = req.body
+  const { companyId } = req.params
+
+  let company
+  try {
+    company = await Company.findById(companyId, '-password -reservations')
+  } catch (error) {
+    return next(
+      new HttpError(
+        'Impossible de modifier vos informations pour le moment',
+        500
+      )
+    )
+  }
+
+  if (company.id !== req.companyData.companyId) {
+    return next(
+      new HttpError("Vous n'êtes pas autorisé à réaliser cet action", 401)
+    )
+  }
+
+  company.name = name
+  company.email = email
+  company.address = address
+  company.postal_code = postalCode
+  company.city = city
+  company.masks_stock = masksStock
+  company.updated_at = new Date().getTime()
+
+  try {
+    await company.save()
+  } catch (error) {
+    return next(
+      new HttpError('Impossible de modifier votre compte pour le moment', 500)
+    )
+  }
+
+  res.status(200).json({ company: company.toObject({ getters: true }) })
+}
 
 const deleteCompany = async (req, res, next) => {}
 
@@ -159,7 +204,7 @@ const login = async (req, res, next) => {
   let token
   try {
     token = jwt.sign(
-      { userId: company.id, email: company.email },
+      { companyId: company.id, email: company.email },
       process.env.JWT_KEY,
       { expiresIn: '1h' }
     )

@@ -25,7 +25,7 @@ const HomePage = () => {
             dicta ad adipisci perferendis ipsa nesciunt, sint libero,
             repudiandae aut doloribus, maxime possimus explicabo provident.
           </p>
-          <h2>Vous vendez des masques ?</h2>
+          <h2 className="mt-5">Vous vendez des masques ?</h2>
           <Link
             to="/register"
             className="btn btn-success text-light btn-lg mt-4"

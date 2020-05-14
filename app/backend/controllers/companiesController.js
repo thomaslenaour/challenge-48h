@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const getCoordsForAddress = require('../util/location')
 const Company = require('../models/company')
 const HttpError = require('../models/http-error')
 
@@ -75,13 +76,23 @@ const updateCompany = async (req, res, next) => {
     )
   }
 
+  let coordinates
+  try {
+    coordinates = await getCoordsForAddress(`${address} ${postalCode} ${city}`)
+  } catch (error) {
+    return next(error)
+  }
+
   company.name = name
   company.email = email
   company.address = address
   company.postal_code = postalCode
   company.city = city
+  company.location = coordinates
   company.masks_stock = masksStock
   company.updated_at = new Date().getTime()
+
+  console.log(company)
 
   try {
     await company.save()
@@ -135,6 +146,13 @@ const register = async (req, res, next) => {
     )
   }
 
+  let coordinates
+  try {
+    coordinates = await getCoordsForAddress(`${address} ${postalCode} ${city}`)
+  } catch (error) {
+    return next(error)
+  }
+
   const createdCompany = new Company({
     name,
     email,
@@ -142,6 +160,7 @@ const register = async (req, res, next) => {
     address,
     postal_code: postalCode,
     city,
+    location: coordinates,
     masks_stock: masksStock,
     created_at: new Date().getTime(),
     reservations: []

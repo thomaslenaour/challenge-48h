@@ -10,6 +10,10 @@ const companySchema = Schema({
   address: { type: String, required: true },
   postal_code: { type: String, required: true },
   city: { type: String, required: true },
+  location: {
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true }
+  },
   masks_stock: { type: Number, required: true },
   created_at: { type: Number, required: true },
   updated_at: { type: Number },

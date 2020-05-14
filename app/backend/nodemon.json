@@ -3,6 +3,7 @@
     "DB_USER": "tlnkorr",
     "DB_PASSWORD": "thomaslenaour",
     "DB_NAME": "challenge48",
-    "JWT_KEY": "token-ynov-48"
+    "JWT_KEY": "token-ynov-48",
+    "GOOGLE_API_KEY": "AIzaSyDbogwUxQIWPzYzF-3SOsKixCZDcFfmE_0"
   }
 }

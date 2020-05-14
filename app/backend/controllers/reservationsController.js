@@ -14,16 +14,22 @@ module.exports = {
 
         let reservationFound
         try {
-            reservationFound = await Reservation.findById(reservationId)
+            reservationFound = await Reservation.findById(reservationId).populate('company')
         } catch (error) {
             return next(
                 new HttpError('Something went wrong, could not search reservation.', 500)
             )
         }
-        
+
         if (!reservationFound) {
             return next(
                 new HttpError('No reservation with this id was found.', 404)
+            )
+        }
+
+        if (reservationFound.company.id !== req.companyData.companyId) {
+            return next(
+                new HttpError('You are not allowed to access this record.', 401)
             )
         }
         
@@ -37,7 +43,7 @@ module.exports = {
         let reservations
 
         try {
-            reservations = await Reservation.find({ company : companyId })
+            reservations = await Reservation.find({ company : companyId }).populate('company')
         } catch (error) {
             return next(
                 new HttpError('Unable to fetch reservations.', 500)
@@ -47,6 +53,12 @@ module.exports = {
         if (!reservations) {
             return next(
                 new HttpError('No reservations were found.', 404)
+            )
+        }
+
+        if (reservations[0].company.id !== req.companyData.companyId) {
+            return next(
+                new HttpError('You are not allowed to access these records.', 401)
             )
         }
 
@@ -76,7 +88,7 @@ module.exports = {
         let companyFound
         
         try {
-            companyFound = await Compagny.findById(companyId)
+            companyFound = await Compagny.findById(companyId).populate('company')
         } catch (error) {
             return next(
                 new HttpError('Unable to find compagny', 500)

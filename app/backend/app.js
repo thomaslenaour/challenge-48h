@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const companiesRoutes = require('./routes/companiesRoutes')
+const reservationsRoutes = require('./routes/reservationsRoutes')
 const HttpError = require('./models/http-error')
 
 const app = express()
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/companies', companiesRoutes)
-app.use('/api/reservations', (req, res, next) => {})
+app.use('/api/reservations', reservationsRoutes)
 
 // Error handling
 app.use((req, res, next) => {

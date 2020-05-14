@@ -20,7 +20,32 @@ const getCompanies = async (req, res, next) => {
   })
 }
 
-const getCompany = async (req, res, next) => {}
+const getCompany = async (req, res, next) => {
+  const { companyId } = req.params
+
+  let company
+  try {
+    company = await Company.findById(companyId, '-password -reservations')
+  } catch (err) {
+    return next(
+      new HttpError(
+        'Impossible de récupérer les informations associé à cet identifiant',
+        500
+      )
+    )
+  }
+
+  if (!company) {
+    return next(
+      new HttpError(
+        'Impossible de récupérer les informations associé à cet identifiant',
+        404
+      )
+    )
+  }
+
+  res.json({ company: company.toObject({ getters: true }) })
+}
 
 const updateCompany = async (req, res, next) => {}
 

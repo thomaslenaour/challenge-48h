@@ -2,6 +2,7 @@
   "env": {
     "DB_USER": "tlnkorr",
     "DB_PASSWORD": "thomaslenaour",
-    "DB_NAME": "challenge48"
+    "DB_NAME": "challenge48",
+    "JWT_KEY": "token-ynov-48"
   }
 }

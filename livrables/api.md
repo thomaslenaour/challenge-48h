@@ -3,7 +3,7 @@
 ## /api/companies
 
 - **GET** /api/companies => Liste des entreprises où le nombre de masque est supérieur à 0
-- **POST** /api/companies/register => Créer une compagny (inscription)
+- ✅ **POST** /api/companies/register => Créer une compagny (inscription)
 - **PATCH** /api/companies/:companyId => Modifier compagny
 - **POST** /api/companies/login => Connexion
 - **GET** /api/companies/:companyId => Récupérer les infos en fonction de l'ID

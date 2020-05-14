@@ -8,7 +8,12 @@ function fetchReservations(id) {
   return Axios.get(`http://localhost:5000/api/reservations/company/${id}`)
 }
 
+function fetchReservationsByCompany(id) {
+  return Axios.get(`http://localhost:5000/api/reservations/company/${id}`)
+}
+
 export default {
   createReservation,
-  fetchReservations
+  fetchReservations,
+  fetchReservationsByCompany
 }

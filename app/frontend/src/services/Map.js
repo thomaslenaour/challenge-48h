@@ -10,7 +10,7 @@ let compagnies = {
     "Grand Hotel": { "lat": 44.8428883, "lon": -0.5744338 },
 };
 // Fonction d'initialisation de la carte
-function initMap() {
+export const initMap = () => {
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     map = L.map('map').setView([lat, lon], 11);
     // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
@@ -27,7 +27,4 @@ function initMap() {
     }               	
 }
 
-window.onload = function(){
-// Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
-initMap(); 
-};
+

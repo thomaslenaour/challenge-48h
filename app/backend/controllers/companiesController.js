@@ -1,9 +1,11 @@
 const { validationResult } = require('express-validator')
+const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const getCoordsForAddress = require('../util/location')
 const Company = require('../models/company')
+const Reservation = require('../models/reservation')
 const HttpError = require('../models/http-error')
 
 const getCompanies = async (req, res, next) => {
@@ -105,7 +107,40 @@ const updateCompany = async (req, res, next) => {
   res.status(200).json({ company: company.toObject({ getters: true }) })
 }
 
-const deleteCompany = async (req, res, next) => {}
+const deleteCompany = async (req, res, next) => {
+  const { companyId } = req.params
+
+  let company
+  try {
+    company = await Company.findById(companyId)
+  } catch (error) {
+    return next(new HttpError('Impossible de supprimer cet utilisateur', 500))
+  }
+
+  if (!company) {
+    return next(
+      new HttpError(
+        "Impossible de supprimer l'utilisateur associé à cet ID",
+        404
+      )
+    )
+  }
+
+  if (company.id !== req.companyData.companyId) {
+    return next(
+      new HttpError("Vous n'êtes pas autorisé à réaliser cet action", 401)
+    )
+  }
+
+  try {
+    await Reservation.deleteMany({ company: companyId })
+    await company.remove()
+  } catch (err) {
+    return next(new HttpError('Impossible de supprimer cet utilisateur', 500))
+  }
+
+  res.status(200).json({ message: 'Utilisateur supprimé' })
+}
 
 const register = async (req, res, next) => {
   const errors = validationResult(req)

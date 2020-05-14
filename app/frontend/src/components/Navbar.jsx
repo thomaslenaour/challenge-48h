@@ -60,8 +60,16 @@ const Navbar = () => {
             )) || (
               <>
                 <li className="nav-item mx-2">
+                  <NavLink
+                    to="/account/reservations"
+                    className="btn btn-light text-success"
+                  >
+                    Les réservations
+                  </NavLink>
+                </li>
+                <li className="nav-item mx-2">
                   <NavLink to="/account" className="btn btn-light text-success">
-                    Mon compte
+                    Compte de la société
                   </NavLink>
                 </li>
                 <li className="nav-item mx-2">

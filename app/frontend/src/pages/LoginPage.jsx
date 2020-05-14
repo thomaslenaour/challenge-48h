@@ -25,7 +25,7 @@ const LoginPage = ({ history }) => {
 
     try {
       const responseData = await AuthAPI.login(credentials)
-      auth.login(responseData.data.userId, responseData.data.token)
+      auth.login(responseData.data.companyId, responseData.data.token)
       setErrorLogin('d-none')
       toast.success('Vous êtes désormais connecté ✅')
       history.replace('/')

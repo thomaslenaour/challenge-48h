@@ -13,6 +13,7 @@ import MapPage from './pages/MapPage'
 import 'react-toastify/dist/ReactToastify.css'
 import AccountPage from './pages/AccountPage'
 import ReservationPage from './pages/ReservationPage'
+import AccountReservationPage from './pages/AccountReservationPage'
 
 function App() {
   const { token, login, logout, userId } = useAuth()
@@ -25,6 +26,11 @@ function App() {
         <Route exact path="/places" component={PlacesPages} />
         <Route exact path="/map" component={MapPage} />
         <Route exact path="/account" component={AccountPage} />
+        <Route
+          exact
+          path="/account/reservations"
+          component={AccountReservationPage}
+        />
         <Route
           exact
           path="/reservation/:companyId"

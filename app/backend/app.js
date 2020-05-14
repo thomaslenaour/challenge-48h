@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
+const companiesRoutes = require('./routes/companiesRoutes')
 const HttpError = require('./models/http-error')
 
 const app = express()
@@ -19,7 +20,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/api/companies', (req, res, next) => {})
+app.use('/api/companies', companiesRoutes)
 app.use('/api/reservations', (req, res, next) => {})
 
 // Error handling

@@ -4,11 +4,12 @@ const companiesController = require('../controllers/companiesController')
 
 const router = express.Router()
 
-// /api/customers
-router.get('/user/:userId', companiesController.getCustomers)
-router.get('/:customerId', companiesController.getCustomer)
-router.patch('/:customerId', companiesController.updateCustomer)
-router.delete('/:customerId', companiesController.deleteCustomer)
-router.post('/', companiesController.createCustomer)
+// /api/companies
+router.get('/', companiesController.getCompanies)
+router.get('/:companyId', companiesController.getCompany)
+router.patch('/:companyId', companiesController.updateCompany)
+router.delete('/:companyId', companiesController.deleteCompany)
+router.post('/register', companiesController.createCustomer)
+router.post('/login', companiesController.createCustomer)
 
 module.exports = router

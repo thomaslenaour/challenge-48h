@@ -50,7 +50,7 @@ module.exports = {
             )
         }
 
-        res.json({ reservations: reservations.map(reservation => reservation.toObject({ getters: true })) })
+        res.status(201).json({ reservations: reservations.map(reservation => reservation.toObject({ getters: true })) })
 
     },
 
@@ -67,28 +67,28 @@ module.exports = {
         // verif name
         if ( name.length < 6 || name.length > 32 ) {
             return next(
-                new HttpError('NAME Invalid inputs passed, please check your data', 422)
+                new HttpError('Invalid inputs passed, please check your data', 422)
             )
         }
 
         // verif mail
         if ( !MAIL_CHECK.test(email) ) {
             return next(
-                new HttpError('MAIL Invalid inputs passed, please check your data', 422)
+                new HttpError('Invalid inputs passed, please check your data', 422)
             )
         }
 
         // verif phone
         if ( !PHONE_CHECK.test(phone) ) {
             return next(
-                new HttpError('PHONE Invalid inputs passed, please check your data', 422)
+                new HttpError('Invalid inputs passed, please check your data', 422)
             )
         }
 
         // verif masks
-        if ( isNaN(masks) ) {
+        if ( isNaN(masks) || masks <= 0 ) {
             return next(
-                new HttpError('MASKS Invalid inputs passed, please check your data', 422)
+                new HttpError('Invalid inputs passed, please check your data', 422)
             )
         }
         
@@ -138,14 +138,64 @@ module.exports = {
             )
         }
 
-        companyFound.masks_stock -= 1
+        companyFound.masks_stock -= masks
         companyFound.save()
 
         res.status(201).json({ newCommand })
 
     },
 
-    deleteReservation : function (req, res, next) {
-        
+    deleteReservation : async function (req, res, next) {
+
+        // recieve params
+        let reservationId = req.params.reservationId
+        let complete = req.body.complete
+
+        // check params
+        if (typeof complete != "boolean") {
+            return next(
+                new HttpError('Invalid inputs passed, please check your data', 422)
+            )
+        }
+
+        let reservationFound
+        try {
+            reservationFound = await Reservation.findById(reservationId).populate('company')
+        } catch (error) {
+            return next(
+                new HttpError('Unable to find requested reservation', 500)
+            )
+        }
+
+        if (!reservationFound) {
+            return next(
+                new HttpError('Could not find reservation using this id', 404)
+            )
+        }
+
+        if (reservationFound.company.id !== req.companyData.companyId) {
+            return next(
+                new HttpError('You are not allowed to delete this reservation.', 401)
+            )
+        }
+
+        if (!complete) {
+            reservationFound.company.masks_stock += reservationFound.masks
+        }
+
+        try {
+            const sess = await mongoose.startSession()
+
+            sess.startTransaction()
+            await reservationFound.remove({ session: sess })
+            reservationFound.company.reservations.pull(reservationFound)
+            await reservationFound.company.save({ session: sess })
+            await sess.commitTransaction()
+        } catch (error) {
+            console.log(error)
+            return next(new HttpError('Could not delete the given reservation', 500))
+        }
+
+        res.status(200).json({ message: 'Reservation correctly deleted.' })
     },
 }

@@ -11,6 +11,8 @@ import RegisterPage from './pages/RegisterPage'
 import PlacesPages from './pages/PlacesPage'
 import MapPage from './pages/MapPage'
 import 'react-toastify/dist/ReactToastify.css'
+import AccountPage from './pages/AccountPage'
+import ReservationPage from './pages/ReservationPage'
 
 function App() {
   const { token, login, logout, userId } = useAuth()
@@ -22,6 +24,12 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/places" component={PlacesPages} />
         <Route exact path="/map" component={MapPage} />
+        <Route exact path="/account" component={AccountPage} />
+        <Route
+          exact
+          path="/reservation/:companyId"
+          component={ReservationPage}
+        />
       </Switch>
     )
   } else {
@@ -32,6 +40,11 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/places" component={PlacesPages} />
         <Route exact path="/map" component={MapPage} />
+        <Route
+          exact
+          path="/reservation/:companyId"
+          component={ReservationPage}
+        />
       </Switch>
     )
   }

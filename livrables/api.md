@@ -11,7 +11,7 @@
 
 ## /api/reservations
 
-- **GET** /api/reservations/:reservationId => Récuperer les infos d'une reservation
-- **GET** /api/reservations/company/:companyId => Récupérer toutes les réservations d'une entreprise
-- **POST** /api/reservations/:companyId => Créer une réservation associée à l'ID d'une company
+- ✅ **GET** /api/reservations/:reservationId => Récuperer les infos d'une reservation
+- ✅ **GET** /api/reservations/company/:companyId => Récupérer toutes les réservations d'une entreprise
+- ✅ **POST** /api/reservations/:companyId => Créer une réservation associée à l'ID d'une company
 - **DELETE** /api/reservations/:reservationId => Supprimer une réservation

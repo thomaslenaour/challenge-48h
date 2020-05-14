@@ -57,36 +57,16 @@ module.exports = {
     createReservation : async function (req, res, next) {
 
         // get params
-        let name = req.body.name
-        let email = req.body.email
-        let phone = req.body.phone
-        let masks = req.body.masks
+        let { name, email, phone, masks } = req.body
         let companyId = req.params.companyId
 
         // verif params
-        // verif name
-        if ( name.length < 6 || name.length > 32 ) {
-            return next(
-                new HttpError('Invalid inputs passed, please check your data', 422)
-            )
-        }
-
-        // verif mail
-        if ( !MAIL_CHECK.test(email) ) {
-            return next(
-                new HttpError('Invalid inputs passed, please check your data', 422)
-            )
-        }
-
-        // verif phone
-        if ( !PHONE_CHECK.test(phone) ) {
-            return next(
-                new HttpError('Invalid inputs passed, please check your data', 422)
-            )
-        }
-
-        // verif masks
-        if ( isNaN(masks) || masks <= 0 ) {
+        if ( name.length < 6 ||             // check if name is not too short
+            name.length > 32 ||             // check if name is not too long
+            !MAIL_CHECK.test(email) ||      // check if mail is valid
+            !PHONE_CHECK.test(phone) ||     // check if phone is valid
+            isNaN(masks) ||                 // check if masks is a number
+            masks < 1 ) {                  // check if commands contains at least 0 masks
             return next(
                 new HttpError('Invalid inputs passed, please check your data', 422)
             )
@@ -121,6 +101,7 @@ module.exports = {
             email,
             phone,
             masks,
+            created_at : new Date().getTime(),
             company : companyId
         })
 
@@ -133,6 +114,7 @@ module.exports = {
             await companyFound.save({ session: sess })
             await sess.commitTransaction()
         } catch (err) {
+            console.log(err)
             return next(
                 new HttpError('Reservation creation failed, please retry later', 404)
             )

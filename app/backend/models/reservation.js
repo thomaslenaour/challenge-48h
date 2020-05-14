@@ -7,6 +7,7 @@ const reservationSchema = new Schema({
   email: { type: String, required: true },
   phone: { type: String, required: true },
   masks: { type: Number, required: true },
+  created_at: { type: Number, required: true },
   company: { type: mongoose.Types.ObjectId, required: true, ref: 'Company' }
 })
 

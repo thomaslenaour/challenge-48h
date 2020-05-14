@@ -5,7 +5,7 @@ const Map = withGoogleMap(props => {
   return (
     <div className="d-flex justify-content-center border">
       <GoogleMap
-        defaultCenter={{ lat: 44.8637226, lng: -0.6212461 }}
+        defaultCenter={{ lat: 44.841211, lng: -0.5646937 }}
         defaultZoom={13}
       >
         {props.companies.map(marker => (

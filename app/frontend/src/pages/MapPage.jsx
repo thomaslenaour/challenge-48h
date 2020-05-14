@@ -25,7 +25,7 @@ const MapPage = () => {
     <div className="container">
       <h2 className="text-center my-5">Map</h2>
       <Map
-        containerElement={<div style={{ height: `800px`, width: '1000px' }} />}
+        containerElement={<div style={{ height: `500px`, width: '100%' }} />}
         mapElement={<div style={{ height: `100%` }} />}
         companies={companies}
       />

@@ -18,8 +18,6 @@ const AccountReservationPage = () => {
     }
   }
 
-  console.log(auth.userId)
-
   // Au chargement du composent on va chercher les sneakers
   useEffect(() => {
     fetchReservations()
@@ -53,7 +51,7 @@ const AccountReservationPage = () => {
                 </span>
               </p>
               <button
-                onClick={handleDelete(r.id)}
+                onClick={() => handleDelete(r.id)}
                 className="btn btn-light text-success border-success"
               >
                 Supprimer la réservation

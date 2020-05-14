@@ -38,7 +38,9 @@ const AccountPage = () => {
     fetchReservations()
   }, [])
 
-  const handleDelete = () => {}
+  const handleDelete = () => {
+    console.log(auth.userId)
+  }
 
   return (
     <>

@@ -5,7 +5,20 @@ const jwt = require('jsonwebtoken')
 const Company = require('../models/company')
 const HttpError = require('../models/http-error')
 
-const getCompanies = async (req, res, next) => {}
+const getCompanies = async (req, res, next) => {
+  let companies
+  try {
+    companies = await Company.find({}, '-password')
+  } catch (error) {
+    return next(
+      new HttpError('La requête pour récupérer les comptes a échoué', 500)
+    )
+  }
+
+  res.json({
+    companies: companies.map(company => company.toObject({ getters: true }))
+  })
+}
 
 const getCompany = async (req, res, next) => {}
 

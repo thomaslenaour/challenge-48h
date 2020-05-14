@@ -17,7 +17,7 @@ const HomePage = () => {
           <h2>
             Réservez vos masques sans avoir à vous déplacer plusieurs fois
           </h2>
-          <p className="text-center text-justify px-5 mt-5">
+          <p className="text-center text-justify px-5 mt-5 lead">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
             ipsum soluta voluptatibus, sequi dignissimos ipsa in voluptas
             perspiciatis dolore rem doloremque odit aspernatur iure error labore

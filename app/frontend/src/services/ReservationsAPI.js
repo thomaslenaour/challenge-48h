@@ -12,8 +12,13 @@ function fetchReservationsByCompany(id) {
   return Axios.get(`http://localhost:5000/api/reservations/company/${id}`)
 }
 
+function deleteReservation(id, bool){
+  return Axios.delete(`http://localhost:5000/api/reservations/${id}`,{data:{complete:bool}})
+}
+
 export default {
   createReservation,
   fetchReservations,
-  fetchReservationsByCompany
+  fetchReservationsByCompany,
+  deleteReservation
 }

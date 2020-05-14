@@ -23,7 +23,10 @@ const MapPage = () => {
 
   return (
     <div className="container">
-      <h2 className="text-center my-5">Map</h2>
+      <h2 className="mt-5 text-center display-3">Map</h2>
+      <p className="text-center text-justify px-5 mt-2 mb-5 lead">
+        Retrouvez l'emplacement des lieux enregistrés
+      </p>
       <Map
         containerElement={<div style={{ height: `500px`, width: '100%' }} />}
         mapElement={<div style={{ height: `100%` }} />}

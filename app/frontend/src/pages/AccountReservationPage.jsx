@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import ReservationsAPI from '../services/ReservationsAPI'
 import { AuthContext } from '../contexts/AuthContext'
 
-const AccountReservationPage = () => {
+const AccountReservationPage = ({ history }) => {
   const [reservations, setReservations] = useState([])
   const auth = useContext(AuthContext)
 
@@ -23,8 +23,31 @@ const AccountReservationPage = () => {
     fetchReservations()
   }, [])
 
-  const handleDelete = id => {
-    console.log(id)
+  const handleDelete = async id => {
+    const originalReservations = [...reservations]
+    setReservations(reservations.filter(reservation => reservation.id !== id))
+
+    try {
+      await ReservationsAPI.deleteReservation(id, false)
+      toast.success('La réservation a bien été supprimée ✅')
+      history.push('/account/reservations')
+    } catch (error) {
+      toast.error('Une erreur est survenue ❌')
+      setReservations(originalReservations)
+    }
+  }
+
+  const handleComplete = async id => {
+    const originalReservations = [...reservations]
+    setReservations(reservations.filter(reservation => reservation.id !== id))
+
+    try {
+      await ReservationsAPI.deleteReservation(id, true)
+      toast.success('La réservation a bien été récupérée ✅')
+    } catch (error) {
+      toast.error('Une erreur est survenue ❌')
+      setReservations(originalReservations)
+    }
   }
 
   return (
@@ -52,9 +75,15 @@ const AccountReservationPage = () => {
               </p>
               <button
                 onClick={() => handleDelete(r.id)}
-                className="btn btn-light text-success border-success"
+                className="btn btn-light text-danger border-danger"
               >
-                Supprimer la réservation
+                Le client n'est pas passé
+              </button>
+              <button
+                onClick={() => handleComplete(r.id)}
+                className="btn btn-light text-success border-success ml-2"
+              >
+                Le client est passé
               </button>
             </div>
           </div>

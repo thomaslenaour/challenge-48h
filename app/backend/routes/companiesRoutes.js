@@ -1,5 +1,5 @@
 const express = require('express')
-const { check } = require('express-validator')
+const { check, body } = require('express-validator')
 
 const companiesController = require('../controllers/companiesController')
 
@@ -16,6 +16,13 @@ router.post(
     check('name').not().isEmpty(),
     check('email').normalizeEmail().isEmail(),
     check('password').not().isEmpty(),
+    body('confirmPassword').custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Les mots de passes ne correspondent pas')
+      }
+
+      return true
+    }),
     check('address').not().isEmpty(),
     check('postalCode').not().isEmpty(),
     check('city').not().isEmpty(),

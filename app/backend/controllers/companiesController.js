@@ -86,40 +86,42 @@ const register = async (req, res, next) => {
     .json({ companyId: createdCompany.id, email: createdCompany.email, token })
 }
 
-const login = async (req, nes, next) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body
 
-  let user
+  let company
   try {
-    user = await User.findOne({ email })
+    company = await Company.findOne({ email })
   } catch (error) {
-    return next(new HttpError('Logging in failed.', 500))
+    return next(new HttpError('Impossible de se connecter', 500))
   }
 
-  if (!user) {
-    return next(new HttpError('Invalid credentials', 403))
+  if (!company) {
+    return next(
+      new HttpError('Impossible de trouver un compte associé à cet email', 403)
+    )
   }
 
   let isValidPassword = false
   try {
-    isValidPassword = await bcrypt.compare(password, user.password)
+    isValidPassword = await bcrypt.compare(password, company.password)
   } catch (err) {
     return next(
       new HttpError(
-        'Could not login, please check your credentials and try again.',
+        'Impossible de se connecter, vérifiez vos identifiants et réessayez',
         500
       )
     )
   }
 
   if (!isValidPassword) {
-    return next(new HttpError('Invalid credentials', 403))
+    return next(new HttpError('Le mot de passe est invalide', 403))
   }
 
   let token
   try {
     token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: company.id, email: company.email },
       process.env.JWT_KEY,
       { expiresIn: '1h' }
     )
@@ -127,7 +129,7 @@ const login = async (req, nes, next) => {
     return next(new HttpError('Logging up failed, please try again', 500))
   }
 
-  res.json({ userId: user.id, email: user.email, token })
+  res.json({ companyId: company.id, email: company.email, token })
 }
 
 exports.getCompanies = getCompanies

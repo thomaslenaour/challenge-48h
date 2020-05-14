@@ -1,7 +1,16 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { NavLink, useHistory } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthContext'
 
 const Navbar = () => {
+  const auth = useContext(AuthContext)
+  const history = useHistory()
+
+  const handleLogout = () => {
+    auth.logout()
+    history.push('/')
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success py-4">
       <div className="container">
@@ -23,33 +32,48 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbar">
           <ul className="navbar-nav mr-auto">
-            <NavLink to="/customers" className="nav-link">
+            <NavLink to="/places" className="nav-link">
               Les magasins
             </NavLink>
-            <NavLink to="/invoices" className="nav-link">
+            <NavLink to="/map" className="nav-link">
               La map
             </NavLink>
           </ul>
 
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <NavLink to="/login" className="btn btn-light mx-2 text-success">
-                Connexion
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="#" className="btn btn-light mx-2 text-success">
-                Déconnexion
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/register"
-                className="btn btn-light mx-2 text-success"
-              >
-                Inscription
-              </NavLink>
-            </li>
+            {(!auth.isLoggedIn && (
+              <>
+                <li className="nav-item">
+                  <NavLink to="/login" className="btn btn-light text-success">
+                    Connexion
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/register"
+                    className="ml-3 btn btn-light text-success"
+                  >
+                    Inscription
+                  </NavLink>
+                </li>
+              </>
+            )) || (
+              <>
+                <li className="nav-item mx-2">
+                  <NavLink to="/account" className="btn btn-light text-success">
+                    Mon compte
+                  </NavLink>
+                </li>
+                <li className="nav-item mx-2">
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-light text-success"
+                  >
+                    Déconnexion
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

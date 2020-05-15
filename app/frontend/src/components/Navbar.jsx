@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-success py-4">
       <div className="container">
         <NavLink className="navbar-brand" to="/">
-          Stock/Masques
+          YnovMask
         </NavLink>
 
         <button

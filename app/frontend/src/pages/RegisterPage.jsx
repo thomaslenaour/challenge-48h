@@ -33,7 +33,7 @@ const RegisterPage = ({ history }) => {
         credentials.confirmPassword === credentials.password &&
         credentials.masksStock >= 0
       ) {
-        CompaniesAPI.createCompanie(credentials)
+        await CompaniesAPI.createCompanie(credentials)
         toast.success(
           'Votre compte a bien été crée vous pouvez maintenant vous connecter ✅'
         )
@@ -88,7 +88,7 @@ const RegisterPage = ({ history }) => {
         />
         <Field
           name="masksStock"
-          label="Nombres de masques disponibles actuellement"
+          label="Nombre de masques disponibles actuellement"
           value={credentials.masksStock}
           onChange={handleChange}
           placeholder=""

@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import '../styles/account.css'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { AuthContext } from '../contexts/AuthContext'
 import CompaniesAPI from '../services/CompaniesAPI'
 import ReservationsAPI from '../services/ReservationsAPI'
-import { toast } from 'react-toastify'
 
 const AccountPage = ({ history }) => {
   const [masks, setMasks] = useState(0)
+  const [companyName, setCompanyName] = useState()
   const [reservations, setReservations] = useState(0)
   const auth = useContext(AuthContext)
 
@@ -18,6 +19,7 @@ const AccountPage = ({ history }) => {
         response => response.data.company
       )
       setMasks(data.masks_stock)
+      setCompanyName(data.name)
     } catch {
       toast.error("Une erreur s'est produite ❌")
     }
@@ -56,7 +58,7 @@ const AccountPage = ({ history }) => {
 
   return (
     <>
-      <h1 className="my-5 text-center display-3">Notre entreprise</h1>
+      <h1 className="my-5 text-center display-3">Dashboard</h1>
       <div className="data row d-flex justify-content-center">
         <div className="nb_masks col-md-3 shadow mx-5 p-5 text-center">
           <h2 className="text-success display-4">{masks}</h2>
@@ -79,10 +81,12 @@ const AccountPage = ({ history }) => {
           </Link>
         </div>
         <div className="nb_masks col-md-3 shadow mx-5 p-5 text-center">
-          <h2 className="text-success display-4">48</h2>
-          <p className="lead">Masques restants</p>
-          <Link to="" className="btn btn-success text-light">
-            Modifier
+          <h2 className="text-success display-4">{companyName}</h2>
+          <Link
+            to={`/account/params/${auth.userId}`}
+            className="btn btn-success text-light"
+          >
+            Modifier les informations
           </Link>
         </div>
       </div>

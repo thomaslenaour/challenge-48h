@@ -18,12 +18,11 @@ const HomePage = () => {
             Réservez vos masques sans avoir à vous déplacer plusieurs fois
           </h2>
           <p className="text-center text-justify px-5 mt-5 lead">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-            ipsum soluta voluptatibus, sequi dignissimos ipsa in voluptas
-            perspiciatis dolore rem doloremque odit aspernatur iure error labore
-            corporis nostrum? Id voluptatem deleniti sunt accusamus amet. Ut
-            dicta ad adipisci perferendis ipsa nesciunt, sint libero,
-            repudiandae aut doloribus, maxime possimus explicabo provident.
+            <strong>YnovMask</strong> vous permet de trouver plusieurs points de
+            vente de masques. En cette période délicate pour les Bordelais et la
+            population mondiale, YnovMask propose un service qui vous permettra
+            de réserver vos masques en avance et venir les récupérer dans la
+            journée.
           </p>
           <h2 className="mt-5">Vous vendez des masques ?</h2>
           <Link

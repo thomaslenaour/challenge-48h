@@ -68,20 +68,13 @@ const PlacePages = () => {
 
         {paginatedCompanies.map(c => (
           <div key={c.id} className="row shadow p-4 my-5">
-            <div className="col">
+            <div className="col-8">
               <h3>{c.name}</h3>
               <p>
                 {' '}
                 {c.address} | {c.city} | {c.postal_code}{' '}
               </p>
-              <p>
-                {' '}
-                <span className="badge badge-success">
-                  {' '}
-                  Stock disponible :
-                  <span className="text-bold">{c.masks_stock}</span>
-                </span>
-              </p>
+
               <Link
                 to={`/reservation/${c.id}`}
                 className="btn btn-success text-white"
@@ -89,6 +82,12 @@ const PlacePages = () => {
                 {' '}
                 Réserver des masques
               </Link>
+            </div>
+            <div className="col-4 text-right">
+              <span className="badge badge-light text-success border border-success px-3 py-2">
+                Masques disponibles :{' '}
+                <span className="text-bold">{c.masks_stock}</span>
+              </span>
             </div>
           </div>
         ))}

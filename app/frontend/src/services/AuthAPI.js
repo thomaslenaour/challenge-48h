@@ -1,7 +1,10 @@
 import axios from 'axios'
 
 function login(credentials) {
-  return axios.post('http://localhost:5000/api/companies/login', credentials)
+  return axios.post(
+    `${process.env.REACT_APP_BACKEND_URL}/companies/login`,
+    credentials
+  )
 }
 
 export default {

@@ -18,7 +18,11 @@ const AccountReservationPage = ({ history }) => {
       const reservations = await ReservationsAPI.fetchReservations(
         auth.userId
       ).then(response => response.data.reservations)
-      setReservations(reservations)
+      if (reservations === true) {
+        toast.error("Il n'y a pas de réservations pour le moment ❌")
+      } else {
+        setReservations(reservations)
+      }
     } catch (error) {
       toast.error('Une erreur est survenue ❌')
     }

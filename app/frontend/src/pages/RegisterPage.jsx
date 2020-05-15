@@ -87,7 +87,7 @@ const RegisterPage = ({ history }) => {
         />
         <Field
           name="masksStock"
-          label="Nombres de masques disponibles actuellement"
+          label="Nombre de masques disponibles actuellement"
           value={credentials.masksStock}
           onChange={handleChange}
           placeholder=""

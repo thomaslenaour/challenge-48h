@@ -90,26 +90,19 @@ const AccountReservationPage = ({ history }) => {
         <Field
           name="Rechercher"
           label="Rechercher"
-          placeholder="Veuillez entrer une marque de sneaker"
+          placeholder="Veuillez entrer un nom, un email ou un numéro de téléphone"
           onChange={handleSearch}
           value={search}
         />
         {paginatedReservations.map(r => (
           <div key={r.id} className="row shadow p-4 my-5">
-            <div className="col">
+            <div className="col-8">
               <h3>{r.name}</h3>
               <p>
                 {' '}
                 {r.email} | {r.phone}
               </p>
-              <p>
-                {' '}
-                <span className="badge badge-success">
-                  {' '}
-                  Nombre de masques commandés :
-                  <span className="text-bold">{r.masks}</span>
-                </span>
-              </p>
+
               <button
                 onClick={() => handleDelete(r.id)}
                 className="btn btn-light text-danger border-danger"
@@ -122,6 +115,11 @@ const AccountReservationPage = ({ history }) => {
               >
                 Le client est passé
               </button>
+            </div>
+            <div className="col-4 text-right">
+              <span className="badge badge-light text-success border border-success px-3 py-2">
+                Masques réservés : <span className="text-bold">{r.masks}</span>
+              </span>
             </div>
           </div>
         ))}

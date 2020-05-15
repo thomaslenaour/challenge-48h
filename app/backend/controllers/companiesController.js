@@ -159,6 +159,12 @@ const register = async (req, res, next) => {
     masksStock
   } = req.body
 
+  if (masksStock < 0) {
+    return next(
+      new HttpError('Le nombre de masque ne peut pas être négatif', 422)
+    )
+  }
+
   let existingCompany
   try {
     existingCompany = await Company.findOne({ email })

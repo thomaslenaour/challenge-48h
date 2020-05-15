@@ -30,7 +30,7 @@ const RegisterPage = ({ history }) => {
 
     try {
       if (credentials.confirmPassword === credentials.password) {
-        CompaniesAPI.createCompanie(credentials)
+        await CompaniesAPI.createCompanie(credentials)
         toast.success(
           'Votre compte a bien été crée. Vous êtes maintenant connecté ✅'
         )

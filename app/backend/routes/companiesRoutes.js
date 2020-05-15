@@ -25,7 +25,7 @@ router.post(
     check('address').not().isEmpty(),
     check('postalCode').not().isEmpty(),
     check('city').not().isEmpty(),
-    check('masksStock').not().isEmpty()
+    check('masksStock').isInt({ min: 0 })
   ],
   companiesController.register
 )
@@ -42,7 +42,7 @@ router.patch(
     check('address').not().isEmpty(),
     check('postalCode').not().isEmpty(),
     check('city').not().isEmpty(),
-    check('masksStock').not().isEmpty()
+    check('masksStock').isInt({ min: 0 })
   ],
   companiesController.updateCompany
 )

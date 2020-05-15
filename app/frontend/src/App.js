@@ -15,6 +15,7 @@ import AccountPage from './pages/AccountPage'
 import ReservationPage from './pages/ReservationPage'
 import AccountReservationPage from './pages/AccountReservationPage'
 import AccountParamsPage from './pages/AccountParamsPage'
+import Footer from './components/Footer'
 
 function App() {
   const { token, login, logout, userId } = useAuth()
@@ -68,6 +69,7 @@ function App() {
       <Router>
         <Navbar />
         <main>{routes}</main>
+        <Footer />
       </Router>
       <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
     </AuthContext.Provider>

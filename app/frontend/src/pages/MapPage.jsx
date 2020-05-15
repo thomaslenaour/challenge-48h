@@ -25,7 +25,7 @@ const MapPage = () => {
     <div className="container">
       <h2 className="mt-5 text-center display-3">Map</h2>
       <p className="text-center text-justify px-5 mt-2 mb-5 lead">
-        Retrouvez l'emplacement des lieux enregistrés
+        Retrouvez l'emplacement des revendeurs de masques
       </p>
       <Map
         containerElement={<div style={{ height: `500px`, width: '100%' }} />}

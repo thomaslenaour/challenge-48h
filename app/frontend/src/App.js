@@ -15,6 +15,7 @@ import AccountPage from './pages/AccountPage'
 import ReservationPage from './pages/ReservationPage'
 import AccountReservationPage from './pages/AccountReservationPage'
 import AccountParamsPage from './pages/AccountParamsPage'
+import './styles/pagination.css'
 
 function App() {
   const { token, login, logout, userId } = useAuth()

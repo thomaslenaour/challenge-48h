@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import CompaniesAPI from '../services/CompaniesAPI'
+import Field from '../components/Field'
+import Pagination from '../components/Pagination'
 
 const PlacePages = () => {
   const [companies, setCompanies] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [search, setSearch] = useState('')
 
   const fetchCompanies = async () => {
     try {
@@ -17,11 +21,34 @@ const PlacePages = () => {
     }
   }
 
+  const itemsPerPage = 10
+
   useEffect(() => {
     fetchCompanies()
   }, [])
 
-  console.log(companies)
+  // Fonction qui met à jour la valeur dans la barre de recherche pour filtrer ensuite les données
+  const handleSearch = ({ currentTarget }) => {
+    setSearch(currentTarget.value)
+    setCurrentPage(1)
+  }
+
+  // Filtrage des sneakers selon la recherche en comparant celle-ci au nom des sneakers
+  const companiesFiltered = companies.filter(
+    company =>
+      company.name.toLowerCase().includes(search.toLowerCase()) ||
+      company.postal_code.toLowerCase().includes(search.toLowerCase())
+  )
+
+  // Gestion du changement de page
+  const handlePageChange = page => setCurrentPage(page)
+
+  // Pagination des données
+  const paginatedCompanies = Pagination.getData(
+    companiesFiltered,
+    currentPage,
+    itemsPerPage
+  )
 
   return (
     <>
@@ -30,7 +57,15 @@ const PlacePages = () => {
       </h1>
 
       <div className="container">
-        {companies.map(c => (
+        <Field
+          name="Rechercher"
+          label="Rechercher"
+          placeholder="Veuillez entrer un code postal ou le nom d'une société"
+          onChange={handleSearch}
+          value={search}
+        />
+
+        {paginatedCompanies.map(c => (
           <div key={c.id} className="row shadow p-4 my-5">
             <div className="col">
               <h3>{c.name}</h3>
@@ -56,6 +91,12 @@ const PlacePages = () => {
             </div>
           </div>
         ))}
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          onPageChanged={handlePageChange}
+          length={companiesFiltered.length}
+        />
       </div>
     </>
   )

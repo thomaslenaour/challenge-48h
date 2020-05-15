@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <>
       <h1 className="my-5 text-center display-3">Votre sécurité avant tout</h1>
-      <div className="row pt-5">
+      <div className="row pt-5 w-100">
         <div className="col-6 text-center">
           <img
             className="w-75 img-responsive"
@@ -13,7 +13,7 @@ const HomePage = () => {
             alt="Home Health"
           />
         </div>
-        <div className="col-6 text-center mt-3">
+        <div className="col-5 text-center mt-3">
           <h2>
             Réservez vos masques sans avoir à vous déplacer plusieurs fois
           </h2>

@@ -7,6 +7,7 @@ import Field from '../components/Field'
 
 const AccountReservationPage = ({ history }) => {
   const [reservations, setReservations] = useState([])
+  const [error, setError] = useState('d-none')
   const [currentPage, setCurrentPage] = useState(1)
   const [search, setSearch] = useState('')
   const auth = useContext(AuthContext)
@@ -18,10 +19,10 @@ const AccountReservationPage = ({ history }) => {
       const reservations = await ReservationsAPI.fetchReservations(
         auth.userId
       ).then(response => response.data.reservations)
-      if (reservations === true) {
-        toast.error("Il n'y a pas de réservations pour le moment ❌")
-      } else {
+      if (reservations !== true) {
         setReservations(reservations)
+      } else {
+        setError('')
       }
     } catch (error) {
       toast.error('Une erreur est survenue ❌')
@@ -89,7 +90,9 @@ const AccountReservationPage = ({ history }) => {
       <h1 className="container my-5 text-center display-4">
         Toutes les réservations
       </h1>
-
+      <p className={`my-3 text-danger text-lg text-center ${error}`}>
+        Il n'y a pas de réservations pour le moment !
+      </p>
       <div className="container">
         <Field
           name="Rechercher"

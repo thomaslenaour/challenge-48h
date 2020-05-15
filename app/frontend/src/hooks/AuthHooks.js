@@ -14,7 +14,6 @@ export const useAuth = () => {
   }
 
   const login = useCallback((uid, token, expirationDate) => {
-    console.log(uid)
     setToken(token)
     setUserId(uid)
     const tokenExpirationDate =

@@ -31,9 +31,7 @@ const AccountPage = ({ history }) => {
       const data = await ReservationsAPI.fetchReservationsByCompany(
         auth.userId
       ).then(response => response.data.reservations)
-      if (data === true) {
-        toast.error("Il n'y a pas de réservations pour le moment ❌")
-      } else {
+      if (data !== true) {
         const nbReservations = data.length
         setReservations(nbReservations)
       }

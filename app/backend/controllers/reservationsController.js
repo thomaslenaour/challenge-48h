@@ -54,7 +54,8 @@ module.exports = {
             res.status(201).json({ reservations: true })
         }
 
-        if (reservations.length != 0 || reservations[0].company.id !== req.companyData.companyId) {
+        if (reservations[0].company.id !== req.companyData.companyId) {
+            console.log('here')
             return next(
                 new HttpError('You are not allowed to access these records.', 401)
             )

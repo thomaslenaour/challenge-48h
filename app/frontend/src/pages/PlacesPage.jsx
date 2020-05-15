@@ -21,8 +21,9 @@ const PlacePages = () => {
     }
   }
 
-  const itemsPerPage = 10
+  const itemsPerPage = 5
 
+  // Appel de la fonction fetchCompanies à chaque chargement de page
   useEffect(() => {
     fetchCompanies()
   }, [])

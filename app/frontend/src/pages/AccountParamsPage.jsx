@@ -17,7 +17,7 @@ const AccountParamsPage = () => {
     city: ''
   })
 
-  const [errorLogin, setErrorLogin] = useState('d-none')
+  const [errorParams, setErrorParams] = useState('d-none')
 
   const fetchCompany = async () => {
     try {
@@ -33,7 +33,7 @@ const AccountParamsPage = () => {
         city: data.city
       })
     } catch (error) {
-      console.log(error)
+      toast.error("Une erreur s'est produite ❌")
     }
   }
 
@@ -55,14 +55,17 @@ const AccountParamsPage = () => {
       await CompaniesAPI.updateCompany(auth.userId, credentials)
       toast.success('Vos informations ont bien été modifiées ✅')
     } catch (error) {
-      console.log('autre')
       toast.error('Une erreur est survenue ❌')
+      setErrorParams('')
     }
   }
 
   return (
     <>
       <h1 className="display-4 text-center my-5">Paramètres de la société</h1>
+      <p className={`my-3 text-danger text-lg ${errorParams}`}>
+        Les informations sont invalides !
+      </p>
       <div className="container">
         <form onSubmit={handleSubmit}>
           <Field

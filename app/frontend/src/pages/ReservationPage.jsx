@@ -12,6 +12,7 @@ const ReservationPage = ({ match, history }) => {
     masks: 0
   })
 
+  // Récupération de l'id dans l'URL
   const { companyId } = match.params
 
   const [errorReservation, setErrorReservation] = useState('d-none')
@@ -21,8 +22,6 @@ const ReservationPage = ({ match, history }) => {
     const { value, name } = currentTarget
     setCredentials({ ...credentials, [name]: value })
   }
-
-  console.log(companyId)
 
   // Gestion du submit
   const handleSubmit = async event => {
@@ -37,7 +36,6 @@ const ReservationPage = ({ match, history }) => {
       history.replace('/')
     } catch (error) {
       setErrorReservation('')
-      console.log(credentials)
       toast.error("Une erreur s'est produite ❌")
     }
   }
@@ -46,7 +44,7 @@ const ReservationPage = ({ match, history }) => {
     <>
       <h1 className="my-5 text-center display-4">Je réserve mon masque</h1>
       <p className={`my-3 text-danger text-lg ${errorReservation}`}>
-        Un problème est survenue !
+        Les informations sont invalides !
       </p>
       <div className="container">
         <form onSubmit={handleSubmit} className="py-5">

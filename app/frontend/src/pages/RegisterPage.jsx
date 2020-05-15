@@ -29,17 +29,19 @@ const RegisterPage = ({ history }) => {
     event.preventDefault()
 
     try {
-      if (credentials.confirmPassword === credentials.password) {
+      if (
+        credentials.confirmPassword === credentials.password &&
+        credentials.masksStock >= 0
+      ) {
         await CompaniesAPI.createCompanie(credentials)
         toast.success(
-          'Votre compte a bien été crée. Vous êtes maintenant connecté ✅'
+          'Votre compte a bien été crée vous pouvez maintenant vous connecter ✅'
         )
         setErrorLogin('d-none')
         history.replace('/')
       } else {
         setErrorLogin('')
         toast.error('Une erreur est survenue ❌')
-        console.log('mdp')
       }
 
       // TODO SUCCESS TOAST
@@ -47,7 +49,6 @@ const RegisterPage = ({ history }) => {
       setErrorLogin('')
       // TODO ERROR TOAST
       toast.error('Une erreur est survenue ❌')
-      console.log('autre')
     }
   }
 

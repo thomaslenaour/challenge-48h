@@ -50,13 +50,11 @@ module.exports = {
             )
         }
 
-        if (!reservations) {
-            return next(
-                new HttpError('No reservations were found.', 404)
-            )
+        if (reservations.length == 0) {
+            res.status(201).json({ reservations: true })
         }
 
-        if (reservations[0].company.id !== req.companyData.companyId) {
+        if (reservations.length != 0 || reservations[0].company.id !== req.companyData.companyId) {
             return next(
                 new HttpError('You are not allowed to access these records.', 401)
             )
@@ -126,7 +124,6 @@ module.exports = {
             await companyFound.save({ session: sess })
             await sess.commitTransaction()
         } catch (err) {
-            console.log(err)
             return next(
                 new HttpError('Reservation creation failed, please retry later', 404)
             )
@@ -186,7 +183,6 @@ module.exports = {
             await reservationFound.company.save({ session: sess })
             await sess.commitTransaction()
         } catch (error) {
-            console.log(error)
             return next(new HttpError('Could not delete the given reservation', 500))
         }
 

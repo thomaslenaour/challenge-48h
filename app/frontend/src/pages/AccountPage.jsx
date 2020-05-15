@@ -50,7 +50,6 @@ const AccountPage = ({ history }) => {
       auth.logout()
       history.replace('/')
     } catch (error) {
-      console.log(error.response)
       toast.error("Une erreur s'est produite ❌")
     }
   }
